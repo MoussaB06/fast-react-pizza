@@ -1,13 +1,13 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import Home from "./ui/Home";
-import AppLayout from "./ui/AppLayout";
-import Error from "./ui/Error";
+import Home from './ui/Home';
+import AppLayout from './ui/AppLayout';
+import Error from './ui/Error';
 
-import Menu, { menuLoader } from "./features/menu/Menu";
-import Cart from "./features/cart/Cart";
-import Order, { orderLoader } from "./features/order/Order";
-import CreateOrder, { createOrderAction } from "./features/order/CreateOrder";
+import Menu, { menuLoader } from './features/menu/Menu';
+import Cart from './features/cart/Cart';
+import Order, { orderLoader } from './features/order/Order';
+import CreateOrder, { createOrderAction } from './features/order/CreateOrder';
 
 // Where we define our Routes
 const router = createBrowserRouter([
@@ -16,24 +16,24 @@ const router = createBrowserRouter([
     errorElement: <Error />,
     children: [
       {
-        path: "/",
+        path: '/',
         element: <Home />,
       },
       {
-        path: "/Menu",
+        path: '/Menu',
         element: <Menu />,
         loader: menuLoader,
         errorElement: <Error />,
       },
-      { path: "/cart", element: <Cart /> },
+      { path: '/cart', element: <Cart /> },
       {
         // maintenant des qu'on a une submission sur ce path l'actio vas etre executé
-        path: "/order/new",
+        path: '/order/new',
         element: <CreateOrder />,
         action: createOrderAction,
       },
       {
-        path: "/order/:orderId",
+        path: '/order/:orderId',
         element: <Order />,
         loader: orderLoader,
         errorElement: <Error />,
