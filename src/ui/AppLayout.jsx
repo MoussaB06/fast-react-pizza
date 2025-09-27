@@ -6,14 +6,18 @@ import Loader from './Loader';
 function AppLayout() {
   const navigation = useNavigation();
   const isLoading = navigation.state === 'loading';
+
   return (
-    <div className="layout">
-      {/* je comprendrais plus tard pourquoi on a fait ça! */}
+    <div className="grid h-screen grid-rows-[auto_1fr_auto]">
       {isLoading && <Loader />}
+      {/* {true && <Loader />} */}
+
       <Header />
-      <main>
-        <Outlet />
-      </main>
+      <div className="overflow-scroll">
+        <main>
+          <Outlet />
+        </main>
+      </div>
       <CartOverview />
     </div>
   );

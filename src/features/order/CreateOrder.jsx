@@ -1,5 +1,6 @@
 import { Form, redirect, useActionData, useNavigate } from 'react-router-dom';
 import { createOrder } from '../../services/apiRestaurant';
+import Button from '../../ui/Button';
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
@@ -41,19 +42,29 @@ function CreateOrder() {
   const formErrors = useActionData();
 
   return (
-    <div>
+    <div className="mx-auto my-10 max-w-3xl">
       <h2>Ready to order? Let's go!</h2>
 
       <Form method="POST">
         <div>
           <label>First Name</label>
-          <input type="text" name="customer" required />
+          <input
+            type="text"
+            name="customer"
+            required
+            className="input bg-white"
+          />
         </div>
 
         <div>
           <label>Phone number</label>
           <div>
-            <input type="tel" name="phone" required />
+            <input
+              type="tel"
+              name="phone"
+              required
+              className="input bg-white"
+            />
             {formErrors?.phone && <p>{formErrors.phone}</p>}
           </div>
         </div>
@@ -61,12 +72,13 @@ function CreateOrder() {
         <div>
           <label>Address</label>
           <div>
-            <input type="text" name="address" required />
+            <input type="text" name="address" required className="input" />
           </div>
         </div>
 
         <div>
           <input
+            className="h-6 w-6 accent-yellow-400 focus:ring focus:ring-yellow-500 focus:ring-offset-2 focus:outline-none"
             type="checkbox"
             name="priority"
             id="priority"
@@ -77,10 +89,16 @@ function CreateOrder() {
         </div>
 
         <div>
-          <input name="cart" type="hidden" value={JSON.stringify(cart)} />
-          <button disabled={isSubmitting}>
+          <input
+            name="cart"
+            type="hidden"
+            value={JSON.stringify(cart)}
+            className="input bg-white"
+          />
+
+          <Button type="primary" isSubmitting={isSubmitting}>
             {isSubmitting ? 'Placing order...' : 'Order now'}
-          </button>
+          </Button>
         </div>
       </Form>
     </div>
@@ -101,6 +119,7 @@ export async function createOrderAction({ request }) {
   console.log(order);
 
   const errors = {};
+
   if (!isValidPhone(order.phone)) {
     errors.phone =
       'please give us your correct phone number. We might need it to contact you.';
@@ -108,9 +127,10 @@ export async function createOrderAction({ request }) {
 
   if (Object.keys(errors).length > 0) return errors;
 
-  const newOrder = await createOrder(order);
+  // const newOrder = await createOrder(order);
 
-  return redirect(`/order/${newOrder.id}`);
+  // return redirect(`/order/${newOrder.id}`);
+  return null;
 }
 
 export default CreateOrder;
